@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yzjttcgs.integratedappletinterface.mapper.TMessageMapper">
+
+    <resultMap id="BaseResultMap" type="com.yzjttcgs.integratedappletinterface.domain.po.TMessage">
+            <id property="id" column="id" jdbcType="INTEGER"/>
+            <result property="msgId" column="msg_id" jdbcType="VARCHAR"/>
+            <result property="phone" column="phone" jdbcType="VARCHAR"/>
+            <result property="content" column="content" jdbcType="VARCHAR"/>
+            <result property="tpCode" column="tp_code" jdbcType="VARCHAR"/>
+            <result property="createTime" column="create_time" jdbcType="TIMESTAMP"/>
+            <result property="lastUpdateTime" column="last_update_time" jdbcType="TIMESTAMP"/>
+            <result property="submitTimes" column="submit_times" jdbcType="INTEGER"/>
+            <result property="failTimes" column="fail_times" jdbcType="INTEGER"/>
+            <result property="successTimes" column="success_times" jdbcType="INTEGER"/>
+            <result property="errCode" column="err_code" jdbcType="VARCHAR"/>
+            <result property="errDesc" column="err_desc" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        id,msg_id,phone,
+        content,tp_code,create_time,
+        last_update_time,submit_times,fail_times,
+        success_times,err_code,err_desc
+    </sql>
+
+    <select id="selectLatestContentByPhone" resultType="string">
+        SELECT content FROM jst_sms.t_message where phone = #{mobile} order by id desc limit 1
+    </select>
+</mapper>

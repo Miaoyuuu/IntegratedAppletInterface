@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yzjttcgs.integratedappletinterface.mapper.TAcctInfoMapper">
+
+    <resultMap id="BaseResultMap" type="com.yzjttcgs.integratedappletinterface.domain.po.TAcctInfo">
+            <id property="acctId" column="acct_id" jdbcType="VARCHAR"/>
+            <result property="userId" column="user_id" jdbcType="VARCHAR"/>
+            <result property="acctName" column="acct_name" jdbcType="VARCHAR"/>
+            <result property="acctStatus" column="acct_status" jdbcType="CHAR"/>
+            <result property="acctType" column="acct_type" jdbcType="CHAR"/>
+            <result property="sourceFrom" column="source_from" jdbcType="CHAR"/>
+            <result property="acctLevel" column="acct_level" jdbcType="CHAR"/>
+            <result property="yesterdayBalance" column="yesterday_balance" jdbcType="BIGINT"/>
+            <result property="balance" column="balance" jdbcType="BIGINT"/>
+            <result property="frozenBalance" column="frozen_balance" jdbcType="BIGINT"/>
+            <result property="openDate" column="open_date" jdbcType="INTEGER"/>
+            <result property="changeDate" column="change_date" jdbcType="INTEGER"/>
+            <result property="remark" column="remark" jdbcType="VARCHAR"/>
+            <result property="createUser" column="create_user" jdbcType="VARCHAR"/>
+            <result property="updateUser" column="update_user" jdbcType="VARCHAR"/>
+            <result property="createTime" column="create_time" jdbcType="TIMESTAMP"/>
+            <result property="updateTime" column="update_time" jdbcType="TIMESTAMP"/>
+            <result property="limitedBalanceByDay" column="limited_balance_by_day" jdbcType="BIGINT"/>
+            <result property="liBalDayUptTime" column="li_bal_day_upt_time" jdbcType="TIMESTAMP"/>
+            <result property="limitedBalanceByAll" column="limited_balance_by_all" jdbcType="BIGINT"/>
+            <result property="liBalAllUptTime" column="li_bal_all_upt_time" jdbcType="TIMESTAMP"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        acct_id,user_id,acct_name,
+        acct_status,acct_type,source_from,
+        acct_level,yesterday_balance,balance,
+        frozen_balance,open_date,change_date,
+        remark,create_user,update_user,
+        create_time,update_time,limited_balance_by_day,
+        li_bal_day_upt_time,limited_balance_by_all,li_bal_all_upt_time
+    </sql>
+
+    <update id="updateBalanceByUserIdAndAcctType">
+        update jstpay.T_ACCT_INFO
+        set balance = balance + #{amt}
+        where user_id = #{userId} and acct_type = #{acctType}
+    </update>
+
+    <select id="selectByUserId" resultMap="BaseResultMap">
+        select <include refid="Base_Column_List"/>
+            from jstpay.t_acct_info
+        where user_id = #{userId} and acct_type = '01'
+    </select>
+</mapper>

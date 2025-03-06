@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yzjttcgs.integratedappletinterface.mapper.TAcctTranDetMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap type="com.yzjttcgs.integratedappletinterface.domain.po.TAcctTranDet" id="TAcctTranDetMap">
+        <result column="id" property="id" jdbcType="VARCHAR"/>
+        <result column="trade_code" property="tradeCode" jdbcType="VARCHAR"/>
+        <result column="acct_id" property="acctId" jdbcType="VARCHAR"/>
+        <result column="user_id" property="userId" jdbcType="VARCHAR"/>
+        <result column="acct_name" property="acctName" jdbcType="VARCHAR"/>
+        <result column="source_from" property="sourceFrom" jdbcType="VARCHAR"/>
+        <result column="tran_amount" property="tranAmount" jdbcType="INTEGER"/>
+        <result column="currency" property="currency" jdbcType="INTEGER"/>
+        <result column="tran_dec" property="tranDec" jdbcType="VARCHAR"/>
+        <result column="bus_tran_type" property="busTranType" jdbcType="VARCHAR"/>
+        <result column="bus_trans_date" property="busTransDate" jdbcType="INTEGER"/>
+        <result column="bus_no" property="busNo" jdbcType="VARCHAR"/>
+        <result column="pay_no" property="payNo" jdbcType="VARCHAR"/>
+        <result column="opp_acct_id" property="oppAcctId" jdbcType="VARCHAR"/>
+        <result column="opp_user_id" property="oppUserId" jdbcType="VARCHAR"/>
+        <result column="opp_acct_name" property="oppAcctName" jdbcType="VARCHAR"/>
+        <result column="oper_type" property="operType" jdbcType="VARCHAR"/>
+        <result column="writeoff_flag" property="writeoffFlag" jdbcType="VARCHAR"/>
+        <result column="link_tran_id" property="linkTranId" jdbcType="VARCHAR"/>
+        <result column="remark" property="remark" jdbcType="VARCHAR"/>
+        <result column="create_user" property="createUser" jdbcType="VARCHAR"/>
+        <result column="update_user" property="updateUser" jdbcType="VARCHAR"/>
+        <result column="create_time" property="createTime" jdbcType="TIMESTAMP"/>
+        <result column="update_time" property="updateTime" jdbcType="TIMESTAMP"/>
+        <result column="acct_type" property="acctType" jdbcType="VARCHAR"/>
+        <result column="opp_acct_type" property="oppAcctType" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <insert id="addTAcctTranDet">
+        insert into jstpay.T_ACCT_TRAN_DET(id, trade_code, acct_id, user_id, acct_name, source_from, tran_amount,
+                                           currency, tran_dec,
+                                           bus_tran_type, bus_trans_date,
+                                           bus_no, pay_no, opp_acct_id, opp_user_id, opp_acct_name, oper_type,
+                                           writeoff_flag,
+                                           link_tran_id, remark,
+                                           create_user, update_user, create_time, update_time, acct_type, opp_acct_type)
+        select CONCAT(substring(#{uuid}, 1, 8), DATE_FORMAT(now(), '%m%d%H%i%s')),
+               null,
+               #{acctId},
+               #{userId},
+               #{acctName},
+               '1',
+               #{amt},
+               null,
+               'C',
+               '00',
+               DATE_FORMAT(now(), '%Y%m%d'),
+               #{uuid},
+               '',
+               NULL,
+               NULL,
+               NULL,
+               '1',
+               'N',
+               '',
+               null,
+               'zzjs',
+               'zzjs',
+               now(),
+               now(),
+               '01',
+               null
+    </insert>
+
+</mapper>

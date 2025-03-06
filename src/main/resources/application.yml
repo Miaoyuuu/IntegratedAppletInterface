@@ -1,0 +1,14 @@
+server:
+    port: 8222
+    servlet:
+        context-path: /integrated-applet-interface
+
+spring:
+    profiles:
+        active: prod
+
+mybatis:
+    typeAliasesPackage: com.yzjttcgs.integratedappletinterface.domain
+    mapperLocations: classpath*:mapper/*.xml
+    configLocation:
+        log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
